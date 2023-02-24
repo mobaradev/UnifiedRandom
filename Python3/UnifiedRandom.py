@@ -66,4 +66,4 @@ class UnifiedRandom:
         value = self.get_value()
         intervals = max - min + 1
 
-        return math.floor(intervals * value)
+        return math.floor(intervals * value) + min

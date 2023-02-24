@@ -101,7 +101,6 @@ public class UnifiedRandom
         double value = this.GetValue();
 
         int intervals = max - min + 1;
-		return (int)Math.Floor((intervals * value));
-        return 0;
+		return (int)Math.Floor((intervals * value)) + min;
     }
 }

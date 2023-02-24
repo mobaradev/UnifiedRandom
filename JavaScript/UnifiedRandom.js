@@ -68,7 +68,7 @@ class UnifiedRandom {
         const value = this.getValue();
         const intervals = max - min + 1;
 
-        return Math.floor(intervals * value);
+        return Math.floor(intervals * value) + min;
     }
 }
 
