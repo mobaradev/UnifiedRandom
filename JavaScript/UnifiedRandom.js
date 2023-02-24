@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 
 /*
-    UnifiedRandom version 1.00
+    UnifiedRandom version 1.01
     by Michal Obara (mobaradev) mobaradev@yahoo.com http://mobaradev.com
     MIT License
 */
