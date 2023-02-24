@@ -17,20 +17,20 @@ C/C++ and PHP implementations are under developement
 
 ## How to use
 1. Create an instance of class UnifiedRandom and provide seed in constructor. If you do not enter any seed, it will be automatically genereted from your system's datatime.
-```
+```js
 const urandom = new UnifiedRandom("abcd");
 ```
 
 2. Call GetNumber(int min, int max) or GetValue() function:
-```
+```js
 const randomNumber = urandom.getNumber(4, 24);
 // randomNumber <- 15
 const randomValue = urandom.getValue();
 // randomValue <- 0.5608629047637805
 ```
 
-getNumber(int min, int max) returns a random number (integer) from given range (min, max).
-Both min are max must be of integer type.
+`getNumber(int min, int max)` returns a random number (integer) from given range (`min`, `max`).
+Both min are max must be of `integer` type.
 
 getValue() returns a random value from 0 (inclusive) to 1 (inclusive).
 
@@ -50,7 +50,7 @@ Output 3: 124741 times.
 ```
 
 ## Pseudocode
-```
+```js
 Function GetSignValue(sign)
     If sign == '0' return (1/16)/2
     If sign == '1' return (1/16 + 2/16)/2
