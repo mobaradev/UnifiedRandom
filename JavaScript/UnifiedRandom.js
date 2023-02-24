@@ -64,6 +64,14 @@ class UnifiedRandom {
     }
 
     getNumber(min, max) {
+        // verify and, if possible fix types of min and max arguments
+        if (typeof(min) !== 'number' || typeof(max) !== 'number') return console.error('UnifiedRandom error: wrong type of getNumber(min, max) argument(s). They have to be numbers.');
+        if (!Number.isInteger(min) || !Number.isInteger(max)) {
+            min = parseInt(min);
+            max = parseInt(max);
+            console.warn("UnifiedRandom warning: arguments of getNumber(min, max) are supposed to be integers. Parsed automatically.");
+        }
+
         const value = this.getValue();
         const intervals = max - min + 1;
 

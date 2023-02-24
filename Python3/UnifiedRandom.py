@@ -1,6 +1,7 @@
 import hashlib
 import time
 import math
+import warnings
 
 class UnifiedRandom:
     # UnifiedRandom version 1.00
@@ -63,6 +64,19 @@ class UnifiedRandom:
         return value
 
     def get_number(self, min, max):
+        # verify and, if possible fix types of min and max arguments
+        arguments = [min, max]
+        for i in range(len(arguments)):
+            if not isinstance(arguments[i], int):
+                if isinstance(arguments[i], float):
+                    if i == 0:
+                        min = int(arguments[i])
+                    elif i == 1:
+                        max = int(arguments[i])
+                    warnings.warn("UnifiedRandom warning: arguments of get_number(min, max) are supposed to be integers. Parsed automatically.")
+                else:
+                    raise TypeError("UnifiedRandom error: wrong type of get_number(min, max) argument(s). Expected: int, received: " + str(type(arguments[i])))
+
         value = self.get_value()
         intervals = max - min + 1
 
