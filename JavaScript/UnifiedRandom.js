@@ -9,29 +9,28 @@ const crypto = require('crypto');
 class UnifiedRandom {
     seed = "";
     index = 0;
+    _signValues = {
+        '0': (1/16)/2,
+        '1': (1/16 + 2/16)/2,
+        '2': (2/16 + 3/16)/2,
+        '3': (3/16 + 4/16)/2,
+        '4': (4/16 + 5/16)/2,
+        '5': (5/16 + 6/16)/2,
+        '6': (6/16 + 7/16)/2,
+        '7': (7/16 + 8/16)/2,
+        '8': (8/16 + 9/16)/2,
+        '9': (9/16 + 10/16)/2,
+        'a': (10/16 + 11/16)/2,
+        'b': (11/16 + 12/16)/2,
+        'c': (12/16 + 13/16)/2,
+        'd': (13/16 + 14/16)/2,
+        'e': (14/16 + 15/16)/2,
+        'f': (15/16 + 16/16)/2
+    };
 
     constructor(seed) {
         if (!seed || seed === "") seed = Date.now().toString();
         this.seed = seed;
-    }
-
-    _getSignValue(sign) {
-        if (sign === '0') return (1/16)/2;
-        if (sign === '1') return (1/16 + 2/16)/2;
-        if (sign === '2') return (2/16 + 3/16)/2;
-        if (sign === '3') return (3/16 + 4/16)/2;
-        if (sign === '4') return (4/16 + 5/16)/2;
-        if (sign === '5') return (5/16 + 6/16)/2;
-        if (sign === '6') return (6/16 + 7/16)/2;
-        if (sign === '7') return (7/16 + 8/16)/2;
-        if (sign === '8') return (8/16 + 9/16)/2;
-        if (sign === '9') return (9/16 + 10/16)/2;
-        if (sign === 'a') return (10/16 + 11/16)/2;
-        if (sign === 'b') return (11/16 + 12/16)/2;
-        if (sign === 'c') return (12/16 + 13/16)/2;
-        if (sign === 'd') return (13/16 + 14/16)/2;
-        if (sign === 'e') return (14/16 + 15/16)/2;
-        if (sign === 'f') return (15/16 + 16/16)/2;
     }
 
     getValue() {
@@ -42,7 +41,7 @@ class UnifiedRandom {
 
         for (let i = 0; i < 8; i++) {
             let sign = hash[i];
-            let signValue = this._getSignValue(sign);
+            let signValue = this._signValues[sign];
 
             if (i === 0) {
                 value = signValue;
@@ -50,7 +49,7 @@ class UnifiedRandom {
                 let delta = 1;
                 for (let j = 0; j < i; j++) delta = delta/16;
 
-                if (this._getSignValue(hash[15 - i]) < 0.5) {
+                if (this._signValues[hash[15 - i]] < 0.5) {
                     value -= signValue * delta;
                 } else {
                     value += signValue * delta;

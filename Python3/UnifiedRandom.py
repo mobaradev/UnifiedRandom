@@ -13,24 +13,24 @@ class UnifiedRandom:
         else:
             self.seed = seed
         self.index = 0
-
-    def _get_sign_value(self, sign):
-        if sign == '0': return (1/16)/2
-        if sign == '1': return (1/16 + 2/16)/2
-        if sign == '2': return (2/16 + 3/16)/2
-        if sign == '3': return (3/16 + 4/16)/2
-        if sign == '4': return (4/16 + 5/16)/2
-        if sign == '5': return (5/16 + 6/16)/2
-        if sign == '6': return (6/16 + 7/16)/2
-        if sign == '7': return (7/16 + 8/16)/2
-        if sign == '8': return (8/16 + 9/16)/2
-        if sign == '9': return (9/16 + 10/16)/2
-        if sign == 'a': return (10/16 + 11/16)/2
-        if sign == 'b': return (11/16 + 12/16)/2
-        if sign == 'c': return (12/16 + 13/16)/2
-        if sign == 'd': return (13/16 + 14/16)/2
-        if sign == 'e': return (14/16 + 15/16)/2
-        if sign == 'f': return (15/16 + 16/16)/2
+        self._sign_values = {
+            '0': (1/16)/2,
+            '1': (1/16 + 2/16)/2,
+            '2': (2/16 + 3/16)/2,
+            '3': (3/16 + 4/16)/2,
+            '4': (4/16 + 5/16)/2,
+            '5': (5/16 + 6/16)/2,
+            '6': (6/16 + 7/16)/2,
+            '7': (7/16 + 8/16)/2,
+            '8': (8/16 + 9/16)/2,
+            '9': (9/16 + 10/16)/2,
+            'a': (10/16 + 11/16)/2,
+            'b': (11/16 + 12/16)/2,
+            'c': (12/16 + 13/16)/2,
+            'd': (13/16 + 14/16)/2,
+            'e': (14/16 + 15/16)/2,
+            'f': (15/16 + 16/16)/2
+        }
 
     def get_value(self):
         to_hash = self.seed + "-" + str(self.index)
@@ -39,7 +39,7 @@ class UnifiedRandom:
 
         for i in range(0, 8):
             sign = hash[i]
-            sign_value = self._get_sign_value(sign)
+            sign_value = self._sign_values[sign]
 
             if i == 0:
                 value = sign_value
@@ -48,7 +48,7 @@ class UnifiedRandom:
                 for j in range(0, i):
                     delta = delta/16
 
-                if self._get_sign_value(hash[15 - i]) < 0.5:
+                if self._sign_values[hash[15 - i]] < 0.5:
                     value -= sign_value * delta
                 else:
                     value += sign_value * delta
