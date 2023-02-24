@@ -15,6 +15,26 @@ In case you need to generate certain set of numbers the same way in different so
 
 C/C++ and PHP implementations are under developement
 
+## How to use
+1. Create an instance of class UnifiedRandom and provide seed in constructor. If you do not enter any seed, it will be automatically genereted from your system's datatime.
+```
+const urandom = new UnifiedRandom("abcd");
+```
+
+2. Call GetNumber(int min, int max) or GetValue() function:
+```
+const randomNumber = urandom.getNumber(4, 24);
+// randomNumber <- 15
+const randomValue = urandom.getValue();
+// randomValue <- 0.5608629047637805
+```
+
+getNumber(int min, int max) returns a random number (integer) from given range (min, max).
+Both min are max must be of integer type.
+
+getValue() returns a random value from 0 (inclusive) to 1 (inclusive).
+
+
 ## Tests
 Several test have been carried out to ensure that the function returns approximately random numbers, spread evenly without any bias.
 
@@ -73,7 +93,14 @@ Function GetNumber(min, max)
 ```
 _Where:_
 _Hash(string)_ is a function that returns hashed string (using sha256)
+
 _Floor(number)_ is a function that rounds down number and returns the largest integer less than or equal to a given number
+
+## Changelog
+### 1.01
+- Added type verification and automatic type repairs to supported untyped languages (JavaScript, Python3)
+- Improved performance by reducing redundant calculations
+- Fixed bug with wrong range return in GetNumber(min, max) function
 
 ## Author
 
